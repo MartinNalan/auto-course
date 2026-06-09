@@ -1,7 +1,7 @@
 ---
 name: auto-course
 description: Generic auto-learning engine for online training platforms. Automatically plays course videos, handles sub-section and tab switching, and monitors progress. Adaptable to any platform via JSON config files with CSS selectors. Use when the user needs to complete mandatory online training courses automatically.
-compatibility: "Cross-agent: Pi, Claude Code, Codex, Cline, Roo Code. Requires Chrome browser and puppeteer-core (via browser-tools or npm install)."
+compatibility: "Standalone: Node.js v18+ + Chrome. Agent: Pi, Claude Code, Codex, Cline, Roo Code. Requires puppeteer-core (npm install)."
 ---
 
 # 通用在线课程自动学习

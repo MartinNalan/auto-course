@@ -1,64 +1,60 @@
 # auto-course
 
-通用在线课程自动学习 Skill — 一个 JSON 配置适配所有培训平台。
+通用在线课程自动学习工具 — JSON 配置适配所有培训平台。
 
-> 遵循 [Agent Skills 标准](https://agentskills.io/specification)，兼容所有主流 AI Coding Agent。
+> 🚀 **不需要 Agent，不需要大模型，不需要 API Key。**  
+> 只需要 Node.js + Chrome 浏览器，下载即用。
 >
-> **已测试**: Pi Coding Agent ✅ | Claude Code ✅ | 理论上兼容 Codex、Cline、Roo Code 等
+> 🚀 **不需要 Agent，不需要大模型，不需要 API Key。**  
+> 只需要 Node.js + Chrome 浏览器，下载即用。
 
 ---
 
-## 安装（按你的 Agent 选择）
-
-### 通用方式（任何 Agent，包括 Hermes）
-
-所有遵循 [Agent Skills 标准](https://agentskills.io/specification) 的 Agent 都按同一方式：
+## 🖥 独立使用（无需任何 AI 工具）
 
 ```bash
-# 1. 克隆到 Agent 的 skills 目录
-git clone https://github.com/MartinNalan/auto-course.git ~/.agents/skills/auto-course
+# 1. 下载
+git clone https://github.com/MartinNalan/auto-course.git
+cd auto-course
 
-# 2. 安装依赖
-cd ~/.agents/skills/auto-course && npm install
+# 2. 安装依赖（仅一次）
+npm install
+
+# 3. 直接运行
+node baomi-course.js
 ```
 
-> **Agent 如何发现？** 启动时扫描 `~/.agents/skills/` 下所有目录，找到 `SKILL.md` 即加载。
+| 需要 | 说明 |
+|------|------|
+| **Node.js** | v18+，[nodejs.org](https://nodejs.org) |
+| **Chrome** | 任意版本，需调试模式启动（见下方） |
 
-### 各 Agent 专属命令
+### 适配你自己的平台
 
 ```bash
+cp sites/template.json sites/my-platform.json
+# 编辑 my-platform.json（F12 找选择器）
+node auto-learn.js sites/my-platform.json
+```
+
+---
+
+## 🤖 搭配 AI Agent 使用（可选）
+
+## 安装（按你的 Agent 选择）
+
+```bash
+# Pi Coding Agent
 pi install git:github.com/MartinNalan/auto-course
 ```
 
-### Claude Code
-
 ```bash
-# 方式一：直接作为 Skill
-git clone https://github.com/MartinNalan/auto-course.git ~/.claude/skills/auto-course
-cd ~/.claude/skills/auto-course && npm install
-
-# 方式二：添加到 Claude 配置
-# ~/.claude/settings.json
-{ "skills": ["~/.claude/skills/auto-course"] }
-```
-
-### OpenAI Codex / 其他 Agent
-
-```bash
+# Claude Code / Codex / 其他
 git clone https://github.com/MartinNalan/auto-course.git ~/.agents/skills/auto-course
 cd ~/.agents/skills/auto-course && npm install
 ```
 
-### 通用（任何 Agent）
-
-```bash
-# 1. 克隆到任意位置
-git clone https://github.com/MartinNalan/auto-course.git
-cd auto-course && npm install
-
-# 2. 在 Agent 配置中注册 skills 路径
-# 具体方式参考各 Agent 文档，通常支持 ~/.agents/skills/ 目录
-```
+详细说明见 [SKILL.md](SKILL.md)。
 
 ---
 
