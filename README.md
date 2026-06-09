@@ -2,22 +2,59 @@
 
 通用在线课程自动学习 Skill — 一个 JSON 配置适配所有培训平台。
 
-> 自动完成在线培训平台的视频课程，支持跨 Tab、跨小结自动切换，全程无人值守。
+> 遵循 [Agent Skills 标准](https://agentskills.io/specification)，兼容所有主流 AI Coding Agent。
+>
+> **已测试**: Pi Coding Agent ✅ | Claude Code ✅ | 理论上兼容 Codex、Cline、Roo Code 等
 
-## 一键安装
+---
+
+## 安装（按你的 Agent 选择）
+
+### Pi Coding Agent
 
 ```bash
 pi install git:github.com/MartinNalan/auto-course
 ```
 
-> 安装后自动获得 `puppeteer-core` 依赖。若提示缺少 `browser-tools`，运行：
-> ```bash
-> pi install git:github.com/badlogic/pi-skills
-> ```
+### Claude Code
 
-也可以在 pi 对话中直接说：
-> "帮我安装 auto-course skill"
-> "帮我自动完成在线培训课程"
+```bash
+# 方式一：直接作为 Skill
+git clone https://github.com/MartinNalan/auto-course.git ~/.claude/skills/auto-course
+cd ~/.claude/skills/auto-course && npm install
+
+# 方式二：添加到 Claude 配置
+# ~/.claude/settings.json
+{ "skills": ["~/.claude/skills/auto-course"] }
+```
+
+### OpenAI Codex / 其他 Agent
+
+```bash
+git clone https://github.com/MartinNalan/auto-course.git ~/.agents/skills/auto-course
+cd ~/.agents/skills/auto-course && npm install
+```
+
+### 通用（任何 Agent）
+
+```bash
+# 1. 克隆到任意位置
+git clone https://github.com/MartinNalan/auto-course.git
+cd auto-course && npm install
+
+# 2. 在 Agent 配置中注册 skills 路径
+# 具体方式参考各 Agent 文档，通常支持 ~/.agents/skills/ 目录
+```
+
+---
+
+## 依赖
+
+| 依赖 | 原因 | 安装 |
+|------|------|------|
+| `browser-tools` | 提供 puppeteer-core CDP 能力 | `git clone https://github.com/badlogic/pi-skills.git` |
+
+> 不同 Agent 安装 browser-tools 的命令不同，核心是获取 `puppeteer-core` 依赖。
 
 或手动触发：
 ```

@@ -1,7 +1,7 @@
 ---
 name: auto-course
 description: Generic auto-learning engine for online training platforms. Automatically plays course videos, handles sub-section and tab switching, and monitors progress. Adaptable to any platform via JSON config files with CSS selectors. Use when the user needs to complete mandatory online training courses automatically.
-compatibility: "Requires Chrome browser and browser-tools skill (provides puppeteer-core CDP connection). Install: pi install git:github.com/badlogic/pi-skills"
+compatibility: "Cross-agent: Pi, Claude Code, Codex, Cline, Roo Code. Requires Chrome browser and puppeteer-core (via browser-tools or npm install)."
 ---
 
 # 通用在线课程自动学习
@@ -19,7 +19,26 @@ compatibility: "Requires Chrome browser and browser-tools skill (provides puppet
 
 > 💡 安装本 Skill 后，若缺少 `browser-tools`，Agent 会自动提示安装。
 
-## 快速开始
+## 跨 Agent 兼容
+
+本 Skill 遵循 [Agent Skills 标准](https://agentskills.io/specification)，目录结构：
+
+```
+auto-course/skills/auto-course/
+├── SKILL.md          ← 任何 Agent 自动发现此文件
+└── auto-learn.js     ← 标准 Node.js 脚本，无 Agent 特定依赖
+```
+
+不同 Agent 的安装方式：
+
+| Agent | 安装命令 |
+|-------|----------|
+| **Pi** | `pi install git:github.com/MartinNalan/auto-course` |
+| **Claude Code** | `git clone` → `~/.claude/skills/auto-course` |
+| **Codex** | `git clone` → `~/.agents/skills/auto-course` |
+| **其他** | 放到 Agent 的 skills 目录即可 |
+
+详细安装见仓库 [README](https://github.com/MartinNalan/auto-course)。
 
 ### 前提
 
