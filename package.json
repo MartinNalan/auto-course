@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "description": "通用在线课程自动学习 Skill - 适配多种培训平台，配置驱动",
-  "keywords": ["pi-package", "pi-skill", "skill", "agent-skill", "auto-course", "online-training", "course-automation"],
+  "keywords": ["pi-package", "pi-skill", "skill", "agent-skill", "agentskills", "auto-course", "online-training", "course-automation", "cross-agent", "claude-code", "codex"],
   "author": "MartinNalan",
   "license": "MIT",
   "pi": {

@@ -10,7 +10,21 @@
 
 ## 安装（按你的 Agent 选择）
 
-### Pi Coding Agent
+### 通用方式（任何 Agent，包括 Hermes）
+
+所有遵循 [Agent Skills 标准](https://agentskills.io/specification) 的 Agent 都按同一方式：
+
+```bash
+# 1. 克隆到 Agent 的 skills 目录
+git clone https://github.com/MartinNalan/auto-course.git ~/.agents/skills/auto-course
+
+# 2. 安装依赖
+cd ~/.agents/skills/auto-course && npm install
+```
+
+> **Agent 如何发现？** 启动时扫描 `~/.agents/skills/` 下所有目录，找到 `SKILL.md` 即加载。
+
+### 各 Agent 专属命令
 
 ```bash
 pi install git:github.com/MartinNalan/auto-course
@@ -102,16 +116,38 @@ Start-Process "C:\Program Files\Google\Chrome\Application\chrome.exe" `
 
 ```
 auto-course/
-├── package.json              # pi 包清单
-├── skills/
-│   └── auto-course/
-│       ├── SKILL.md          # 技能文档
-│       ├── auto-learn.js     # 通用引擎（配置驱动）
-│       └── sites/
-│           └── template.json # 新站点配置模板
+├── SKILL.md              ← 🎯 任何 Agent 扫描此文件加载技能
+├── auto-learn.js          ← 通用引擎（配置驱动）
+├── package.json
+├── sites/
+│   └── template.json      ← 新站点配置模板
+├── skills/auto-course/    ← Pi Agent 额外发现路径
+│   └── ...
 └── README.md
 ```
 
 ## License
 
 MIT
+
+---
+
+## 如何让任意 Agent（Hermes 等）安装
+
+所有遵循 [Agent Skills](https://agentskills.io) 标准的 Agent 发现机制相同：
+
+```
+Agent 启动
+  → 扫描 ~/.agents/skills/ 下所有子目录
+  → 找到 SKILL.md → 解析 frontmatter（name, description, compatibility）
+  → 用户任务匹配 description → 自动加载技能
+```
+
+如果你的 Agent 不支持自动安装，只需：
+
+```bash
+git clone https://github.com/MartinNalan/auto-course.git ~/.agents/skills/auto-course
+cd ~/.agents/skills/auto-course && npm install
+```
+
+Agent 下次启动时就会在技能列表里看到 `auto-course`。
