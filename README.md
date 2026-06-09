@@ -117,14 +117,25 @@ Start-Process "C:\Program Files\Google\Chrome\Application\chrome.exe" `
 ```
 auto-course/
 ├── SKILL.md              ← 🎯 任何 Agent 扫描此文件加载技能
-├── auto-learn.js          ← 通用引擎（配置驱动）
+├── baomi-course.js        ← 🔥 保密在线专用：下载即用，零配置
+├── auto-learn.js          ← 通用引擎（适配其他平台）
 ├── package.json
 ├── sites/
 │   └── template.json      ← 新站点配置模板
-├── skills/auto-course/    ← Pi Agent 额外发现路径
-│   └── ...
 └── README.md
 ```
+
+## 保密在线专用脚本
+
+如果你只需要刷「2026年度全国保密教育线上培训」：
+
+```bash
+git clone https://github.com/MartinNalan/auto-course.git
+cd auto-course && npm install
+node baomi-course.js
+```
+
+> 无需任何 JSON 配置，直接运行。自动完成 3 模块 41 节课。同样的前提：Chrome 需以调试模式启动。
 
 ## License
 
