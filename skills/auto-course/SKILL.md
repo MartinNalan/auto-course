@@ -1,23 +1,17 @@
 ---
 name: auto-course
-description: Generic auto-learning engine for online training platforms. Automatically plays course videos, handles sub-section and tab switching, and monitors progress. Comes with pre-configured support for baomi.org.cn (中国保密在线). Adapt to new platforms by adding a JSON config file with CSS selectors.
+description: Generic auto-learning engine for online training platforms. Automatically plays course videos, handles sub-section and tab switching, and monitors progress. Adaptable to any platform via JSON config files with CSS selectors. Use when the user needs to complete mandatory online training courses automatically.
 ---
 
 # 通用在线课程自动学习
 
-通用的在线培训课程自动学习引擎，适配多种平台。
-
-## 已支持站点
-
-| 站点 | 配置 | 状态 |
-|------|------|:--:|
-| [baomi.org.cn](https://www.baomi.org.cn) | `sites/baomi.json` | ✅ 已验证 |
+配置驱动的在线培训课程自动学习引擎。通过 JSON 配置文件适配任意平台。
 
 ## 快速开始
 
 ### 前提
 
-Chrome 必须以远程调试模式启动：
+Chrome 必须以远程调试模式启动（任何平台都需要）：
 
 **Windows:**
 ```powershell
@@ -31,7 +25,7 @@ Start-Process "C:\Program Files\Google\Chrome\Application\chrome.exe" `
   --remote-debugging-port=9222 --no-first-run
 ```
 
-启动后登录目标网站，打开课程页面。
+启动 Chrome 后，手动登录目标网站并打开课程页面。
 
 ### 安装
 
@@ -40,28 +34,17 @@ cd {baseDir}
 npm install
 ```
 
-> 若已安装 `browser-tools` skill，可复用其 `puppeteer-core` 依赖。
+### 适配新平台（3 步）
 
-### 运行
-
+**1. 复制模板**
 ```bash
-# 默认：保密在线培训
-node auto-learn.js
-
-# 指定其他站点配置
-node auto-learn.js sites/mooc.json
+cp sites/template.json sites/新平台.json
 ```
 
-## 适配新平台
-
-1. 复制 `sites/template.json` 为新文件
-2. F12 打开开发者工具，找到对应 CSS 选择器
-3. 填写配置：
-
+**2. 填写选择器（F12 开发者工具）**
 ```json
 {
   "name": "平台名称",
-  "domain": "example.com",
   "courseUrl": "https://example.com/course/xxx",
   "selectors": {
     "leftNav": ".sidebar-item",
@@ -77,50 +60,53 @@ node auto-learn.js sites/mooc.json
 }
 ```
 
-### 选择器字段说明
+**3. 运行**
+```bash
+node auto-learn.js sites/新平台.json
+```
 
-| 字段 | 说明 | 示例 |
-|------|------|------|
-| `leftNav` | 左侧导航项选择器 | `.leftBar-item` |
-| `leftNavActive` | 包含"课程"文字的导航项 | `"课程"` |
-| `tabList` | Tab 切换区域 | `.tab-item` |
-| `courseList` | 课程卡片列表 | `.course-list .course-item` |
-| `courseTitle` | 课程标题（相对于 course 元素） | `.titlename` |
-| `courseHours` | 学时显示 | `.num .themeColor` |
-| `statusDone` | 已完成状态的 CSS class | `status2` |
-| `statusWatching` | 学习中状态的 CSS class | `status1` |
-| `videoPageUrl` | 视频页 URL 特征字符串 | `bmVideo` |
+## 选择器字段说明
+
+| 字段 | 说明 | 如何找 |
+|------|------|--------|
+| `leftNav` | 左侧导航 CSS 选择器 | 找课程列表的导航菜单 |
+| `leftNavActive` | 导航中包含的文字 | 如"课程"、"课件" |
+| `tabList` | Tab 切换区选择器 | 页面中的分类标签 |
+| `courseList` | 课程卡片列表选择器 | 单个课程项的父容器 |
+| `courseTitle` | 标题（相对 course） | 课程名称的元素 |
+| `courseHours` | 学时（相对 course，可选） | 学时/时长显示 |
+| `statusDone` | 已完成 CSS class | 点开已完成课程看 class |
+| `statusWatching` | 学习中 CSS class | 点开进行中课程看 class |
+| `videoPageUrl` | 视频页 URL 特征 | 点击课程后地址栏关键词 |
 
 ## 工作原理
 
 ```
-┌────────────────────────────────────────────┐
-│              站点配置 JSON                  │
-│  selectors / URLs / status classes          │
-└──────────────────┬─────────────────────────┘
-                   ▼
-┌────────────────────────────────────────────┐
-│             auto-learn.js 引擎              │
-│                                            │
-│  1. 连接 Chrome (CDP)                      │
-│  2. 根据选择器找到课程列表                   │
-│  3. 点击未完成课程 → 打开视频页              │
-│  4. 每10秒监控视频进度                       │
-│  5. 视频卡住 → 检查课程页 → 推进             │
-│  6. Tab完成 → 自动切换下一个Tab              │
-└────────────────────────────────────────────┘
+站点配置 JSON ──→ auto-learn.js 引擎
+                      │
+          ┌───────────┼───────────┐
+          ▼           ▼           ▼
+       连接Chrome   监控视频   自动推进
+       (CDP)       (10s检测)  (跨Tab/小结)
 ```
+
+1. 通过 Chrome DevTools Protocol 连接浏览器
+2. 根据选择器定位课程列表、Tab、状态标记
+3. 点击未完成课程 → 监控视频播放
+4. 视频卡住（暂停/结尾）→ 自动检查并点击下一节
+5. 当前模块全部完成 → 自动切换下一模块
 
 ## 状态图标
 
 | 图标 | 含义 |
 |:--:|------|
-| ✅ | 已学完 |
+| ✅ | 已完成 |
 | ▶ | 学习中 |
 | ⬜ | 未开始 |
 
 ## 注意事项
 
-- ⚠️ 学习期间不要关闭 Chrome 窗口
-- ⚠️ 不同平台的 CSS class 名称不同，务必在 F12 中确认
-- ⚠️ 若页面结构复杂（多层嵌套Tab等），可能需要微调引擎代码
+- ⚠️ 学习期间不要关闭 Chrome 窗口，可最小化
+- ⚠️ 不同平台的 CSS class 命名不同，务必 F12 确认
+- ⚠️ 页面加载慢可调大 `staleness.checkIntervalMs`
+- ⚠️ 若页面无 Tab 结构，`tabList` 可留空

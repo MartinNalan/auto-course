@@ -15,11 +15,27 @@ import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const configPath = process.argv[2] || resolve(__dirname, "sites/baomi.json");
+const configPath = process.argv[2];
+
+if (!configPath) {
+  console.log("═".repeat(50));
+  console.log("  通用在线课程自动学习引擎");
+  console.log("═".repeat(50));
+  console.log("");
+  console.log("用法: node auto-learn.js <站点配置.json>");
+  console.log("");
+  console.log("示例:");
+  console.log("  node auto-learn.js sites/my-platform.json");
+  console.log("");
+  console.log("适配新平台:");
+  console.log("  1. cp sites/template.json sites/新平台.json");
+  console.log("  2. 编辑新平台.json（F12 找 CSS 选择器）");
+  console.log("  3. node auto-learn.js sites/新平台.json");
+  process.exit(0);
+}
 
 if (!existsSync(configPath)) {
   console.error("❌ 配置文件不存在:", configPath);
-  console.log("用法: node auto-learn.js [站点配置.json]");
   process.exit(1);
 }
 
@@ -152,7 +168,7 @@ async function main() {
   for (const p of await browser.pages()) setupDialogs(p);
 
   let listPage = (await browser.pages()).find(p =>
-    p.url().includes("bmCourseDetail") || (!p.url().includes(S.videoPageUrl) && p.url() !== "about:blank")
+    p.url() !== "about:blank" && !p.url().includes(S.videoPageUrl)
   );
   if (!listPage) {
     listPage = await browser.newPage();

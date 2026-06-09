@@ -7,8 +7,7 @@
   "author": "MartinNalan",
   "license": "MIT",
   "pi": {
-    "skills": ["./skills"],
-    "image": "https://raw.githubusercontent.com/MartinNalan/auto-course/main/demo.png"
+    "skills": ["./skills"]
   },
   "dependencies": {
     "puppeteer-core": "^23.11.1"

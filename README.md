@@ -1,14 +1,8 @@
-# pi-auto-course
+# auto-course
 
-通用在线课程自动学习 Skill for [Pi Coding Agent](https://github.com/badlogic/pi-coding-agent)。
+通用在线课程自动学习 Skill — 一个 JSON 配置适配所有培训平台。
 
 > 自动完成在线培训平台的视频课程，支持跨 Tab、跨小结自动切换，全程无人值守。
-
-## 已适配平台
-
-| 平台 | 状态 |
-|------|:--:|
-| [baomi.org.cn](https://www.baomi.org.cn) 中国保密在线 | ✅ |
 
 ## 安装
 
@@ -19,20 +13,27 @@ pi install git:github.com/MartinNalan/auto-course
 ## 使用
 
 在 pi 会话中直接说：
-> "帮我自动学习保密在线课程"
+> "帮我自动完成在线培训课程"
 
 或手动触发：
 ```
 /skill:auto-course
 ```
 
-也可以命令行直接运行：
+命令行直接运行：
 ```bash
-node skills/auto-course/auto-learn.js
-node skills/auto-course/auto-learn.js sites/other-platform.json
+node skills/auto-course/auto-learn.js sites/你的平台.json
 ```
 
-## 前提
+## 适配新平台
+
+1. 复制 `skills/auto-course/sites/template.json` → `sites/新平台.json`
+2. F12 找到对应 CSS 选择器，填入配置
+3. 运行 `node auto-learn.js sites/新平台.json`
+
+详细说明见 `skills/auto-course/SKILL.md`。
+
+## 前提（所有平台通用）
 
 Chrome 需要以远程调试模式启动：
 
@@ -48,26 +49,17 @@ Start-Process "C:\Program Files\Google\Chrome\Application\chrome.exe" `
   --remote-debugging-port=9222 --no-first-run
 ```
 
-## 适配新平台
-
-1. 复制 `skills/auto-course/sites/template.json` → `sites/新平台.json`
-2. F12 找到对应 CSS 选择器，填入配置
-3. 运行 `node auto-learn.js sites/新平台.json`
-
-详细说明见 `skills/auto-course/SKILL.md`。
-
 ## 目录结构
 
 ```
-pi-auto-course/
-├── package.json
+auto-course/
+├── package.json              # pi 包清单
 ├── skills/
 │   └── auto-course/
-│       ├── SKILL.md           # 技能文档
-│       ├── auto-learn.js      # 通用引擎
+│       ├── SKILL.md          # 技能文档
+│       ├── auto-learn.js     # 通用引擎（配置驱动）
 │       └── sites/
-│           ├── baomi.json      # 保密在线配置
-│           └── template.json   # 新站点模板
+│           └── template.json # 新站点配置模板
 └── README.md
 ```
 
