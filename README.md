@@ -4,15 +4,19 @@
 
 > 自动完成在线培训平台的视频课程，支持跨 Tab、跨小结自动切换，全程无人值守。
 
-## 安装
+## 一键安装
 
 ```bash
 pi install git:github.com/MartinNalan/auto-course
 ```
 
-## 使用
+> 安装后自动获得 `puppeteer-core` 依赖。若提示缺少 `browser-tools`，运行：
+> ```bash
+> pi install git:github.com/badlogic/pi-skills
+> ```
 
-在 pi 会话中直接说：
+也可以在 pi 对话中直接说：
+> "帮我安装 auto-course skill"
 > "帮我自动完成在线培训课程"
 
 或手动触发：
@@ -35,7 +39,7 @@ node skills/auto-course/auto-learn.js sites/你的平台.json
 
 ## 前提（所有平台通用）
 
-Chrome 需要以远程调试模式启动：
+**1. Chrome 远程调试模式：**
 
 **Windows:**
 ```powershell
@@ -48,6 +52,14 @@ Start-Process "C:\Program Files\Google\Chrome\Application\chrome.exe" `
 /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome \
   --remote-debugging-port=9222 --no-first-run
 ```
+
+**2. 依赖：**
+
+| 依赖 | 原因 | 安装 |
+|------|------|------|
+| `browser-tools` | 提供 puppeteer-core CDP 能力 | `pi install git:github.com/badlogic/pi-skills` |
+
+> 安装 `auto-course` 时 npm 依赖自动安装。`browser-tools` 若缺失，Agent 会提示。
 
 ## 目录结构
 

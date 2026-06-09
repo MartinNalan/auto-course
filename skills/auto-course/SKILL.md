@@ -1,11 +1,23 @@
 ---
 name: auto-course
 description: Generic auto-learning engine for online training platforms. Automatically plays course videos, handles sub-section and tab switching, and monitors progress. Adaptable to any platform via JSON config files with CSS selectors. Use when the user needs to complete mandatory online training courses automatically.
+compatibility: "Requires Chrome browser and browser-tools skill (provides puppeteer-core CDP connection). Install: pi install git:github.com/badlogic/pi-skills"
 ---
 
 # 通用在线课程自动学习
 
 配置驱动的在线培训课程自动学习引擎。通过 JSON 配置文件适配任意平台。
+
+## 依赖
+
+本 Skill 依赖以下组件，缺失时会引导安装：
+
+| 依赖 | 说明 | 安装命令 |
+|------|------|----------|
+| **browser-tools** | Chrome CDP 连接能力（puppeteer-core） | `pi install git:github.com/badlogic/pi-skills` |
+| **Chrome 浏览器** | 需以远程调试模式启动 | 系统自带或手动安装 |
+
+> 💡 安装本 Skill 后，若缺少 `browser-tools`，Agent 会自动提示安装。
 
 ## 快速开始
 
