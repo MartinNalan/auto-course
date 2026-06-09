@@ -13,7 +13,7 @@
 ## 安装
 
 ```bash
-pi install git:github.com/MartinNalan/pi-auto-course
+pi install git:github.com/MartinNalan/auto-course
 ```
 
 ## 使用

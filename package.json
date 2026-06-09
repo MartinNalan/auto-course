@@ -1,14 +1,14 @@
 {
-  "name": "pi-auto-course",
+  "name": "auto-course",
   "version": "1.0.0",
   "type": "module",
   "description": "通用在线课程自动学习 Skill - 适配多种培训平台，配置驱动",
-  "keywords": ["pi-package", "pi-skill", "auto-course", "online-training"],
+  "keywords": ["pi-package", "pi-skill", "skill", "agent-skill", "auto-course", "online-training", "course-automation"],
   "author": "MartinNalan",
   "license": "MIT",
   "pi": {
     "skills": ["./skills"],
-    "image": "https://raw.githubusercontent.com/MartinNalan/pi-auto-course/main/demo.png"
+    "image": "https://raw.githubusercontent.com/MartinNalan/auto-course/main/demo.png"
   },
   "dependencies": {
     "puppeteer-core": "^23.11.1"
