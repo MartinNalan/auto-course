@@ -1,0 +1,34 @@
+{
+  "name": "新站点模板",
+  "domain": "example.com",
+  "courseUrl": "https://example.com/course/xxx",
+
+  "selectors": {
+    "leftNav": ".sidebar-item",
+    "leftNavActive": "课程",
+    "tabList": ".tab-item",
+    "courseList": ".course-list .course-item",
+    "courseTitle": ".title",
+    "courseHours": ".hours",
+    "statusDone": "status-completed",
+    "statusWatching": "status-learning",
+    "videoPageUrl": "video"
+  },
+
+  "staleness": {
+    "checkIntervalMs": 10000,
+    "stallLimit": 6
+  },
+
+  "notes": "请根据新站点实际DOM结构调整以上选择器。",
+  
+  "_howToFindSelectors": {
+    "1": "打开课程列表页，F12 开发者工具",
+    "2": "找到左侧导航的课程按钮 → 填 leftNav / leftNavActive",
+    "3": "找到Tab切换区域 → 填 tabList",
+    "4": "找到课程卡片列表 → 填 courseList",
+    "5": "找到课程标题元素 → 填 courseTitle",
+    "6": "点击一个课程，看打开的视频页URL特征 → 填 videoPageUrl",
+    "7": "查看已完成/未完成课程的class区别 → 填 statusDone / statusWatching"
+  }
+}

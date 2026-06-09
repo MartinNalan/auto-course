@@ -1,0 +1,24 @@
+{
+  "name": "保密在线培训",
+  "domain": "baomi.org.cn",
+  "courseUrl": "https://www.baomi.org.cn/bmCourseDetail/course?id=312bc914-8e11-421b-b9bc-e900fe1a4e50&docId=56242227&docLibId=-15&pubId=42388&siteId=95",
+  "chromeFlags": {
+    "debugPort": 9222
+  },
+  "selectors": {
+    "leftNav": ".leftBar-item",
+    "leftNavActive": "课程",
+    "tabList": ".tab-item",
+    "courseList": ".course-list .course-item",
+    "courseTitle": ".titlename",
+    "courseHours": ".num .themeColor",
+    "statusDone": "status2",
+    "statusWatching": "status1",
+    "videoPageUrl": "bmVideo"
+  },
+  "staleness": {
+    "checkIntervalMs": 10000,
+    "stallLimit": 6
+  },
+  "notes": "课程分组为多个Tab，每个Tab内分小结。小结内自动连播，小结间需手动点击。status0=未开始 status1=学习中 status2=已完成。"
+}
